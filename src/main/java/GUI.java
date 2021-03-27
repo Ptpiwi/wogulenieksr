@@ -1,5 +1,3 @@
-package pl.mowk.ksr;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -55,6 +53,7 @@ public class GUI {
                 String wynik = k.getText();
             }
         });
+        button.setBounds(220,150,80,30);
 
         //panel.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
         label.setText("Podaj k: ");
