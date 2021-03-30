@@ -17,12 +17,12 @@ import pl.mowk.ksr.data.Article;
 
 @Getter
 @NoArgsConstructor
-public class Dataset {
+public class ArticleReader {
     private List<Article> articles;
     private String path;
     private String[] allowedPlaces = {"usa", "france", "canada", "japan", "west-germany"};
 
-    public Dataset(String path) {
+    public ArticleReader(String path) {
         this.path = path;
         extractDataFromDirectory(path);
     }

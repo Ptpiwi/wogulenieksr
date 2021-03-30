@@ -2,17 +2,17 @@ package pl.mowk.ksr;
 import org.junit.Before;
 import org.junit.Test;
 import pl.mowk.ksr.data.Article;
-import pl.mowk.ksr.data.Dataset;
+import pl.mowk.ksr.data.ArticleReader;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class DatasetTest {
 
-    Dataset dataset;
+    ArticleReader dataset;
 
     @Before
     public void setUp() throws Exception {
-        dataset = new Dataset("src/test/resources/debugdataset");
+        dataset = new ArticleReader("src/test/resources/debugdataset");
     }
 
     @Test

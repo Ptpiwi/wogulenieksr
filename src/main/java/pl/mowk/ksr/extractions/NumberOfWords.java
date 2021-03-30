@@ -1,4 +1,4 @@
-package pl.mowk.ksr.atributes;
+package pl.mowk.ksr.extractions;
 
 public class NumberOfWords {
     public int count(String text){
