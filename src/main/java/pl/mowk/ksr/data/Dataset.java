@@ -61,7 +61,7 @@ public class Dataset {
             if (checkIfPlacesAreGood(tmp)) {
                 articles.add(new Article(
                         element.select("title").text(),
-                        bieda(element.select("text").html()),
+                        element.select("text").text(),
                         tmp.get(0)
                 ));
             }
