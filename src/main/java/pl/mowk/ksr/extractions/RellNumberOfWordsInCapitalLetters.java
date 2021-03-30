@@ -1,10 +1,10 @@
-package pl.mowk.ksr.atributes;
+package pl.mowk.ksr.extractions;
 
 import pl.mowk.ksr.data.Article;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class WordsInCapitalLetters {
+public class RellNumberOfWordsInCapitalLetters {
     public double calculate(Article art) throws IOException {
         String[] allWords = art.getBody().split(" ");
         //String[] allWords = text.split(" ");
