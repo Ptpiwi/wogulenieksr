@@ -19,4 +19,15 @@ public class Article {
         this.place = place;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public String getPlace() {
+        return place;
+    }
 }
