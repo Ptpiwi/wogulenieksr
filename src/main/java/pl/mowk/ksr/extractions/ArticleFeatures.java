@@ -75,7 +75,7 @@ public class ArticleFeatures {
                 // todo nie czaje jak to działa
                 break;
             case Avg_nr_of_words_in_sentence:
-                //todo
+                numberFeatures.add(AvgNumberOfWordsInSentence.countSentences(article));
                 break;
             default:
                 System.out.println("To nie powinno sie pojawic, cos poszlo nie tak przy ekstrakcji");

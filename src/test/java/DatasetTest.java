@@ -19,7 +19,12 @@ public class DatasetTest {
     public void setUp() throws Exception {
         List<Feature> features = new ArrayList<Feature>();
         features.add(Feature.Title);
-        features.add(Feature.Number_of_words);
+        //features.add(Feature.Number_of_words);
+        //features.add(Feature.Avg_nr_of_words_in_sentence);
+        //features.add(Feature.Currency);
+        features.add(Feature.First_keyword);
+        //features.add(Feature.Most_common_keyword);
+
         dataset = new ArticleReader("src/test/resources/debugdataset", features);
     }
 

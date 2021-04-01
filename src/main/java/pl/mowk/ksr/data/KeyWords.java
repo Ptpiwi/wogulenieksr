@@ -1,9 +1,6 @@
 package pl.mowk.ksr.data;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +26,7 @@ public class KeyWords {
     }
 
     public List<String> loadFromFile() throws IOException {
-        String path = "C:\\Users\\Michalina\\Desktop\\wogulenieksr1\\src\\main\\resources\\slowa.txt";
+        String path = "src/main/resources/keywords/slowa.txt";
         BufferedReader fileReader = null;
         List<String> keywords = null;
         try {
