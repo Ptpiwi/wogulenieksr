@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+//todo cos jest nie ten teges
+
 public class RelNumberOfOccurrencesKeywords {
     public static double calculate(Article art) throws IOException {
         int numberofkw = 0;
@@ -21,7 +23,7 @@ public class RelNumberOfOccurrencesKeywords {
                 }
             }
         }
-        double result = (numberofkw * 0.1) / (allWords.length/10);
+        double result = (numberofkw * 0.1) / ((double) allWords.length/10);
         return result;
     }
 }

@@ -3,6 +3,7 @@ package pl.mowk.ksr.data;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class KeyWords {
@@ -34,9 +35,7 @@ public class KeyWords {
             String full = fileReader.readLine();
             String[] list = full.split("\\|");
             keywords = new ArrayList<>();
-            for (String l : list) {
-                keywords.add(l);
-            }
+            Collections.addAll(keywords, list);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {

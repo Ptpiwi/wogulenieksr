@@ -13,8 +13,9 @@ import java.util.List;
 public class ArticleFeatures {
     private String actualClass;
     private String predictedClass;
-    private List<String> textFeatures = new ArrayList<String>();
-    private List<Double> numberFeatures = new ArrayList<Double>();
+    //todo zamiast list wypadło by skorzystać z map
+    private List<String> textFeatures = new ArrayList<>();
+    private List<Double> numberFeatures = new ArrayList<>();
 
     public ArticleFeatures(Article article, List<Feature> features) {
         this.actualClass = article.getPlace();
@@ -72,7 +73,11 @@ public class ArticleFeatures {
                 }
                 break;
             case Currency:
-                // todo nie czaje jak to działa
+                try {
+                    Currency.find(article);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 break;
             case Avg_nr_of_words_in_sentence:
                 numberFeatures.add(AvgNumberOfWordsInSentence.countSentences(article));

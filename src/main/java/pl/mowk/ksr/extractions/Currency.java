@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Currency {
-    public String find (Article art) throws IOException {
-        File file = new File("articles/currency");
+    public static String find (Article art) throws IOException {
+        File file = new File("src/main/resources/keywords/currency");
         String[] allWords = art.getBody().split(" ");
         //String[] allWords = text.split(" ");
         ArrayList<String> list = findInFile(file);
@@ -40,7 +40,7 @@ public class Currency {
         }
         return pom.getName();
     }
-    public ArrayList<String> findInFile (File file) {
+    public static ArrayList<String> findInFile(File file) {
         ArrayList<String> b = new ArrayList();
         try(BufferedReader a = new BufferedReader(new FileReader (file))) {
             String c = null;
