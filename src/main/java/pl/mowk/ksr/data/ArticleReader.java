@@ -61,7 +61,7 @@ public class ArticleReader {
             if (checkIfPlacesAreGood(tmp)) {
                 articles.add(new Article(
                         element.select("title").text(),
-                        element.select("text").text(),
+                        bieda(element.select("text").html()),
                         tmp.get(0)
                 ));
             }
@@ -78,13 +78,8 @@ public class ArticleReader {
     }
 
     private String bieda(String bobmarley){
-        StringBuilder tmp = new StringBuilder();
-        Pattern pattern = Pattern.compile("<title>(.*?)</dateline>", Pattern.DOTALL);
-        Matcher matcher = pattern.matcher(bobmarley);
-        while (matcher.find()) {
-            tmp.append(matcher.group(1));
-        }
-        return tmp.toString();
+        String[] segments = bobmarley.split("</dateline>");
+        return segments[segments.length - 1];
     }
 
 }
