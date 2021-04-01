@@ -14,16 +14,19 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import pl.mowk.ksr.data.Article;
+import pl.mowk.ksr.extractions.ArticleFeatures;
+import pl.mowk.ksr.extractions.Feature;
 
 @Getter
 @NoArgsConstructor
 public class ArticleReader {
-    private List<Article> articles;
+    private List<ArticleFeatures> articles;
     private String path;
     private String[] allowedPlaces = {"usa", "france", "canada", "japan", "west-germany"};
-
-    public ArticleReader(String path) {
+    private List<Feature> features = new ArrayList<Feature>();
+    public ArticleReader(String path, List<Feature> features) {
         this.path = path;
+        this.features=features;
         extractDataFromDirectory(path);
     }
 
@@ -59,11 +62,12 @@ public class ArticleReader {
             List<String> tmp = extractPlacesFromElement(element);
 
             if (checkIfPlacesAreGood(tmp)) {
-                articles.add(new Article(
+                Article tempArticle =new Article(
                         element.select("title").text(),
                         bieda(element.select("text").html()),
                         tmp.get(0)
-                ));
+                );
+                articles.add(new ArticleFeatures(tempArticle, features));
             }
 
         }

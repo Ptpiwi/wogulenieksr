@@ -1,14 +1,15 @@
 package pl.mowk.ksr.extractions;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.ToString;
 import pl.mowk.ksr.data.Article;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter
+
 @Getter
+@ToString
 public class ArticleFeatures {
     private String actualClass;
     private String predictedClass;
@@ -16,7 +17,7 @@ public class ArticleFeatures {
     private List<Double> numberFeatures = new ArrayList<Double>();
 
     public ArticleFeatures(Article article, List<Feature> features) {
-        this.actualClass=article.getPlace();
+        this.actualClass = article.getPlace();
         for (Feature feature :
                 features) {
             extractFeatures(article, feature);
