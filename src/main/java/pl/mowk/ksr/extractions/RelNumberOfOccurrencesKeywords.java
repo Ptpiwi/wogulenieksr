@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RelNumberOfOccurrencesKeywords {
-    public double calculate(Article art) throws IOException {
+    public static double calculate(Article art) throws IOException {
         int numberofkw = 0;
         String[] allWords = art.getBody().split(" ");
         ArrayList<String> currInText = new ArrayList<>();

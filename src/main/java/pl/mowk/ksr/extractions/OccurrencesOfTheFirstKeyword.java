@@ -5,7 +5,7 @@ import pl.mowk.ksr.data.Article;
 import java.io.IOException;
 
 public class OccurrencesOfTheFirstKeyword {
-    public int count(Article art) throws IOException {
+    public static double count(Article art) throws IOException {
         String firstKW;
         TheFirstKeyword first = new TheFirstKeyword();
         firstKW = first.find(art);

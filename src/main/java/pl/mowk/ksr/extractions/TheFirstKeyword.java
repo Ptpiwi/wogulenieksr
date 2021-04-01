@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class TheFirstKeyword {
-    public String find(Article art) throws IOException {
+    public static String find(Article art) throws IOException {
         String first = null;
         KeyWords k = new KeyWords();
         List<String> kw = k.getKeyWords();

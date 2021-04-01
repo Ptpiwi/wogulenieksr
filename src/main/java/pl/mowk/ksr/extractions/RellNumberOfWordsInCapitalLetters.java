@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class RellNumberOfWordsInCapitalLetters {
-    public double calculate(Article art) throws IOException {
+    public static double calculate(Article art) {
         String[] allWords = art.getBody().split(" ");
         //String[] allWords = text.split(" ");
         ArrayList<String> currInText = new ArrayList<>();

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MostCommonKeyword {
-    public String find (Article art) throws IOException {
+    public static String find (Article art) throws IOException {
         String[] allWords = art.getBody().split(" ");
         //String[] allWords = text.split(" ");
         KeyWords k = new KeyWords();
