@@ -5,7 +5,9 @@ import pl.mowk.ksr.data.KeyWords;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MostCommonKeyword {
     public static String find (Article art) throws IOException {
@@ -16,9 +18,13 @@ public class MostCommonKeyword {
         ArrayList<String> kwInText = new ArrayList<>();
         for (String i : allWords) {
             for (String j : kw) {
-                if (i.contains(j)) ;
-                kwInText.add(i);
+                if (i.equals(j)) {
+                    kwInText.add(j);
+                }
             }
+        }
+        if(kwInText.size() == 0){
+            return "none";
         }
         ArrayList<KeyWords> single = new ArrayList<>();
         int j = 0;

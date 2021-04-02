@@ -33,7 +33,7 @@ public class KeyWords {
         try {
             fileReader = new BufferedReader(new FileReader(path));
             String full = fileReader.readLine();
-            String[] list = full.split("\\|");
+            String[] list = full.split(" ");
             keywords = new ArrayList<>();
             Collections.addAll(keywords, list);
         } catch (FileNotFoundException e) {

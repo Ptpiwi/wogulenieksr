@@ -13,7 +13,6 @@ public class RelNumberOfOccurrencesKeywords {
     public static double calculate(Article art) throws IOException {
         int numberofkw = 0;
         String[] allWords = art.getBody().split(" ");
-        ArrayList<String> currInText = new ArrayList<>();
         KeyWords k = new KeyWords();
         List<String> kw = k.getKeyWords();
         for (int i = 0; i < allWords.length/10; i++) {
@@ -23,7 +22,10 @@ public class RelNumberOfOccurrencesKeywords {
                 }
             }
         }
-        double result = (numberofkw * 0.1) / ((double) allWords.length/10);
+        if(numberofkw == 0){
+            return 0;
+        }
+        double result = (numberofkw * 1.0) / ((double) allWords.length/10);
         return result;
     }
 }
