@@ -5,7 +5,7 @@ import pl.mowk.ksr.data.ArticleReader;
 public class KnnMethod {
     ArticleReader dataSet;
     Metric metric = new EuclideanMetric(new Ngram(3));
-    Double as;
+    Double kValue;
     public KnnMethod(ArticleReader articleReader, Metric metric){
         this.dataSet=articleReader;
         this.metric=metric;
