@@ -5,7 +5,9 @@ import lombok.ToString;
 import pl.mowk.ksr.data.Article;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Getter
@@ -13,85 +15,36 @@ import java.util.List;
 public class ArticleFeatures {
     private String actualClass;
     private String predictedClass;
-    //todo zamiast list wypadło by skorzystać z map
-    private List<String> textFeatures = new ArrayList<>();
-    private List<Double> numberFeatures = new ArrayList<>();
+    private Map<Feature, String> textFeatures = new HashMap<Feature, String>();
+    private Map<Feature, Double> numberFeatures = new HashMap<Feature, Double>();
 
-    public ArticleFeatures(Article article, List<Feature> features) {
+    public ArticleFeatures(Article article) {
         this.actualClass = article.getPlace();
-        for (Feature feature :
-                features) {
-            extractFeatures(article, feature);
-        }
+        extractFeatures(article);
     }
 
-
-    private void extractFeatures(Article article, Feature feature) {
-        switch (feature) {
-            case First_keyword:
-                try {
-                    textFeatures.add(TheFirstKeyword.find(article));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-            case Title:
-                textFeatures.add(TextTitle.title(article));
-                break;
-            case Rel_Number_Of_Occurrences_Keywords:
-                try {
-                    numberFeatures.add(RelNumberOfOccurrencesKeywords.calculate(article));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-            case Rell_Number_Of_Words_In_Capital_Letters:
-                numberFeatures.add(RellNumberOfWordsInCapitalLetters.calculate(article));
-                break;
-            case First_keyword_nr:
-                try {
-                    numberFeatures.add(OccurrencesOfTheFirstKeyword.count(article));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-            case Number_of_words:
-                numberFeatures.add(NumberOfWords.count(article));
-                break;
-            case Most_common_keyword_in_part:
-                try {
-                    textFeatures.add(MostCommonKeywordInPart.find(article));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-            case Most_common_keyword:
-                try {
-                    textFeatures.add(MostCommonKeyword.find(article));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-            case Currency:
-                try {
-                    textFeatures.add(Currency.find(article));
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                break;
-            case Avg_nr_of_words_in_sentence:
-                numberFeatures.add(AvgNumberOfWordsInSentence.countSentences(article));
-                break;
-            default:
-                System.out.println("To nie powinno sie pojawic, cos poszlo nie tak przy ekstrakcji");
-                break;
-
-        }
-    }
-
+    //for debug purposes only
     public ArticleFeatures(String a, double b) {
-        textFeatures.add(a);
-        numberFeatures.add(b);
+        textFeatures.put(Feature.Title, a);
+        numberFeatures.put(Feature.Avg_nr_of_words_in_sentence, b);
     }
+
+    private void extractFeatures(Article article) {
+        try {
+            textFeatures.put(Feature.First_keyword, TheFirstKeyword.find(article));
+            textFeatures.put(Feature.Title, TextTitle.title(article));
+            textFeatures.put(Feature.Most_common_keyword, MostCommonKeyword.find(article));
+            textFeatures.put(Feature.Currency, Currency.find(article));
+            textFeatures.put(Feature.Most_common_keyword_in_part, MostCommonKeywordInPart.find(article));
+            numberFeatures.put(Feature.Rel_Number_Of_Occurrences_Keywords, RelNumberOfOccurrencesKeywords.calculate(article));
+            numberFeatures.put(Feature.Rell_Number_Of_Words_In_Capital_Letters, RellNumberOfWordsInCapitalLetters.calculate(article));
+            numberFeatures.put(Feature.First_keyword_nr, RelNumberOfOccurrencesKeywords.calculate(article));
+            numberFeatures.put(Feature.Avg_nr_of_words_in_sentence, AvgNumberOfWordsInSentence.countSentences(article));
+            numberFeatures.put(Feature.Number_of_words, NumberOfWords.count(article));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

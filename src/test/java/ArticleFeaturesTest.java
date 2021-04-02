@@ -4,6 +4,8 @@ import pl.mowk.ksr.data.Article;
 import pl.mowk.ksr.data.ArticleReader;
 import pl.mowk.ksr.extractions.ArticleFeatures;
 
+import java.util.Map;
+
 
 public class ArticleFeaturesTest {
 
@@ -13,14 +15,9 @@ public class ArticleFeaturesTest {
 
     @Test
     public void debuk(){
-        for (Object obj: features.getTextFeatures()
-        ) {
-            System.out.print(obj.toString());
-        }
-        for (Object obj: features.getNumberFeatures()
-        ) {
-            System.out.print(obj.toString());
-        }
+
+            System.out.print(features.getTextFeatures().toString());
+            System.out.print(features.getNumberFeatures().toString());
     }
 
 

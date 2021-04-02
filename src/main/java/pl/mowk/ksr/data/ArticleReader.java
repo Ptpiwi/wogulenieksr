@@ -75,7 +75,7 @@ public class ArticleReader {
                         bieda(element.select("text").html()),
                         tmp.get(0)
                 );
-                articles.add(new ArticleFeatures(tempArticle, features));
+                articles.add(new ArticleFeatures(tempArticle));
             }
 
         }
@@ -108,7 +108,7 @@ public class ArticleReader {
 
     private String bieda(String bobmarley){
         String[] segments = bobmarley.split("</dateline>");
-        String[] body = segments[segments.length - 1].toLowerCase().split(" ");
+        String[] body = segments[segments.length - 1].split(" ");
         StringBuilder builder = new StringBuilder();
         for(String word : body) {
             if (!stopWords.contains(word)) {

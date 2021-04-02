@@ -1,9 +1,12 @@
 package pl.mowk.ksr.classification;
 
 import pl.mowk.ksr.extractions.ArticleFeatures;
+import pl.mowk.ksr.extractions.Feature;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.sqrt;
+import java.util.List;
+
+import static java.lang.Math.*;
+import static java.lang.Math.pow;
 
 public class ManhattanMetric implements Metric {
     Ngram ngram;
@@ -11,15 +14,15 @@ public class ManhattanMetric implements Metric {
         this.ngram=ngram;
     }
 
-    public double calculateDistance(ArticleFeatures art1, ArticleFeatures art2) {
+    public double calculateDistance(ArticleFeatures art1, ArticleFeatures art2, List<Feature> features) {
         double distance = 0;
-        int size = art1.getNumberFeatures().size();
-        for (int i = 0; i < size; i++) {
-            distance += abs((art1.getNumberFeatures().get(i) - art2.getNumberFeatures().get(i)));
-        }
-        size = art1.getTextFeatures().size();
-        for (int i = 0; i < size; i++) {
-            distance += ngram.wordsDistance(art1.getTextFeatures().get(i), art2.getTextFeatures().get(i));
+        for (Feature feature : features
+        ) {
+            if (art1.getNumberFeatures().containsKey(feature)) {
+                distance += abs((art1.getNumberFeatures().get(feature) - art2.getNumberFeatures().get(feature)));
+            } else if (art1.getTextFeatures().containsKey(feature)) {
+                distance += ngram.wordsDistance(art1.getTextFeatures().get(feature), art2.getTextFeatures().get(feature));
+            }
         }
         return distance;
     }
