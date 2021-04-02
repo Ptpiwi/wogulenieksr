@@ -16,7 +16,7 @@ public class RellNumberOfWordsInCapitalLetters {
                 sumCapital++;
             }
         }
-        double result = (sumCapital * 0.1) / allWords.length;
+        double result = (sumCapital * 1.0) / allWords.length;
         return result;
     }
 }

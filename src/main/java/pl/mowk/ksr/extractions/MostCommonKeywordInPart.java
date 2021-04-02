@@ -17,11 +17,13 @@ public class MostCommonKeywordInPart {
         for (int i = 0; i < allWords.length/10; i++) {
             for (String j : kw){
                 if (allWords[i].contains(j)){
-                    kwInText.add(allWords[i]);
+                    kwInText.add(j);
                 }
             }
         }
-
+        if(kwInText.size() == 0){
+            return "none";
+        }
         ArrayList<KeyWords> single = new ArrayList<>();
         int j = 0;
         for (String a : kwInText) {

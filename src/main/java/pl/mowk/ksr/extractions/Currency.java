@@ -7,19 +7,27 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Currency {
+
     public static String find (Article art) throws IOException {
-        File file = new File("src/main/resources/keywords/currency");
+        //String [] currency = {"dlr", "euro", "USD","pound"};
+        File file = new File("src\\main\\resources\\keywords\\currency");
         String[] allWords = art.getBody().split(" ");
         //String[] allWords = text.split(" ");
         ArrayList<String> list = findInFile(file);
         ArrayList<String> currInText = new ArrayList<>();
-        for (String i : allWords){
-            for(String j: list){
-                if(i.contains(j)){
-                  currInText.add(i);};
+        for (String i : allWords) {
+            for (String j : list) {
+                if (i.contains(j)) {;
+                currInText.add(i);
+                }
             }
+        }
+        if(currInText.size() == 0){
+            return "none";
         }
         ArrayList<SingleCurrency> single = new ArrayList<>();
         int j = 0;

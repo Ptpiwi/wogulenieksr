@@ -14,9 +14,14 @@ public class TheFirstKeyword {
         String[] allWords = art.getBody().split(" ");
         for (String i : allWords){
             for(String j: kw){
-                if(i.contains(j));
-                first = j;
+                if(i.contains(j)) {
+                    first = j;
+                    break;
+                }
             }
+        }
+        if(first == null){
+            return "none";
         }
         return first;
     }

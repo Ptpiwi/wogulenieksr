@@ -64,7 +64,6 @@ public class ArticleReader {
         return tmp;
     }
 
-
     private void extractDataFromFile(File file) throws IOException {
         Document document = Jsoup.parse(file, "UTF-8");
         for (Element element : document.select("REUTERS")) {
@@ -124,4 +123,7 @@ public class ArticleReader {
 
     }
 
+    public List<ArticleFeatures> getArticles() {
+        return articles;
+    }
 }

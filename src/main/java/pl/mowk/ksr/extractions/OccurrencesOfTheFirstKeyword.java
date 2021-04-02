@@ -10,6 +10,9 @@ public class OccurrencesOfTheFirstKeyword {
         TheFirstKeyword first = new TheFirstKeyword();
         firstKW = first.find(art);
         String[] allWords = art.getBody().split(" ");
+        if(firstKW == null){
+            return 0;
+        }
         int counter = 0;
         for (String i : allWords){
            if(i.contains(firstKW)) {
