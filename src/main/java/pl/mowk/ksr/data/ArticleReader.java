@@ -2,14 +2,19 @@ package pl.mowk.ksr.data;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.json.JSONArray;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -21,12 +26,16 @@ import pl.mowk.ksr.extractions.Feature;
 @NoArgsConstructor
 public class ArticleReader {
     private List<ArticleFeatures> articles;
+    private List<ArticleFeatures> articlesTest;
+    private List<ArticleFeatures> articlesTraining;
+    private List<String> stopWords = new ArrayList<>();
     private String path;
     private String[] allowedPlaces = {"usa", "france", "canada", "japan", "west-germany"};
     private List<Feature> features = new ArrayList<Feature>();
     public ArticleReader(String path, List<Feature> features) {
         this.path = path;
         this.features=features;
+        extractStopWords();
         extractDataFromDirectory(path);
     }
 
@@ -81,9 +90,38 @@ public class ArticleReader {
         return false;
     }
 
+    private void extractStopWords(){
+        JSONArray array = null;
+        try {
+            String content = Files.readString(Path.of("src/main/resources/keywords/stoplist"),StandardCharsets.UTF_8);
+            JSONArray jsonArray = new JSONArray(content);
+
+            if (jsonArray != null) {
+                int len = jsonArray.length();
+                for (int i = 0; i < len; i++) {
+                    stopWords.add(jsonArray.get(i).toString());
+                }
+            }
+            } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private String bieda(String bobmarley){
         String[] segments = bobmarley.split("</dateline>");
-        return segments[segments.length - 1];
+        String[] body = segments[segments.length - 1].toLowerCase().split(" ");
+        StringBuilder builder = new StringBuilder();
+        for(String word : body) {
+            if (!stopWords.contains(word)) {
+                builder.append(word);
+                builder.append(' ');
+            }
+        }
+        return builder.toString().trim();
+    }
+
+    public void dataSpliter(double prOfTraingData){
+
     }
 
 }

@@ -24,6 +24,7 @@ public class RelNumberOfOccurrencesKeywords {
             }
         }
         double result = (numberofkw * 0.1) / ((double) allWords.length/10);
+        System.out.println(result);
         return result;
     }
 }

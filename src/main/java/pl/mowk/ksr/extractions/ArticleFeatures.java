@@ -74,7 +74,7 @@ public class ArticleFeatures {
                 break;
             case Currency:
                 try {
-                    Currency.find(article);
+                    textFeatures.add(Currency.find(article));
                 }catch (Exception e){
                     e.printStackTrace();
                 }

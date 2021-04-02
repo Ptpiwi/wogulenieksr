@@ -1,4 +1,3 @@
-
 import org.junit.Before;
 import org.junit.Test;
 import pl.mowk.ksr.data.Article;
@@ -28,7 +27,7 @@ public class DatasetTest {
         // git chyba
         //features.add(Feature.Avg_nr_of_words_in_sentence);
 
-        //todo robi sie niemiłosiernie długo dla całych reuters i pusto
+
         //features.add(Feature.Currency);
 
         //todo zwraca dla kazdego artykułu stg or billion Shinpan HOURS ICCO simul CUTS gt gasolin Canon band Nippon Exxon Metal GM rice nickel ADB Jiji
@@ -49,7 +48,7 @@ public class DatasetTest {
         //todo chyba git ale wartości sa bardzo małe - może zamiana na promile?
         //features.add(Feature.Rell_Number_Of_Words_In_Capital_Letters);
 
-        dataset = new ArticleReader("src/main/resources/reuters", features);
+        dataset = new ArticleReader("src/test/resources/debugdataset", features);
     }
 
     @Test
