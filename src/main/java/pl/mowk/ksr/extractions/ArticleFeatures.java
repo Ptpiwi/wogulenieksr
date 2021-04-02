@@ -46,5 +46,9 @@ public class ArticleFeatures {
         }
     }
 
+    public void setPredictedClass(String predictedClass){
+        this.predictedClass = predictedClass;
+    }
+
 
 }
