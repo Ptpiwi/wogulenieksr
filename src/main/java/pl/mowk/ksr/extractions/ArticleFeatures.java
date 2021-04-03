@@ -24,9 +24,10 @@ public class ArticleFeatures {
     }
 
     //for debug purposes only
-    public ArticleFeatures(String a, double b) {
+    public ArticleFeatures(String a, double b, String actualClass) {
         textFeatures.put(Feature.Title, a);
         numberFeatures.put(Feature.Avg_nr_of_words_in_sentence, b);
+        this.actualClass = actualClass;
     }
 
     private void extractFeatures(Article article) {

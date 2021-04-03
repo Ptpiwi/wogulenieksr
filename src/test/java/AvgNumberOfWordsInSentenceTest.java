@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 import pl.mowk.ksr.data.Article;
 import pl.mowk.ksr.data.ArticleReader;
@@ -10,6 +11,6 @@ public class AvgNumberOfWordsInSentenceTest {
     @Test
     public void debuk(){
         Article article = new Article("title", testString, "usa");
-        System.out.println(AvgNumberOfWordsInSentence.countSentences(article));
+        Assert.assertEquals(7.64, AvgNumberOfWordsInSentence.countSentences(article), 0.1);
     }
 }
