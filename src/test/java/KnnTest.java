@@ -23,25 +23,28 @@ public class KnnTest {
     @Before
     public void setUp() {
 
-        this.gram = new Ngram(3);
+        this.gram = new Ngram(3, false);
         this.metric = new EuclideanMetric(gram);
         this.features.add(Feature.Title);
+
         this.features.add(Feature.Avg_nr_of_words_in_sentence);
-        features.add(Feature.Number_of_words);
+        //features.add(Feature.Number_of_words);
         features.add(Feature.Currency);
         features.add(Feature.First_keyword);
         features.add(Feature.Most_common_keyword);
-        features.add(Feature.Most_common_keyword_in_part);
-        features.add(Feature.First_keyword_nr);
-        features.add(Feature.Rel_Number_Of_Occurrences_Keywords);
-        features.add(Feature.Rell_Number_Of_Words_In_Capital_Letters);
+        //features.add(Feature.Most_common_keyword_in_part);
+        //features.add(Feature.First_keyword_nr);
+        //features.add(Feature.Rel_Number_Of_Occurrences_Keywords);
+        //features.add(Feature.Rell_Number_Of_Words_In_Capital_Letters);
+
+
         long time = System.currentTimeMillis();
         this.dataset = new ArticleReader("src/main/resources/reuters", features);
         //this.dataset = new ArticleReader("src/test/resources/debugdataset", features);
         System.out.print("Extraction time:");
         System.out.print((System.currentTimeMillis()-time)/1000);
         System.out.println();
-        this.knnMethod = new KnnMethod(3, 0.5, dataset.getArticles(), features, metric);
+        this.knnMethod = new KnnMethod(2, 0.7, dataset.getArticles(), features, metric);
 
     }
 

@@ -22,7 +22,7 @@ public class MetricTest {
     public void setUp() throws Exception {
         this.articleFeatures = new ArticleFeatures("grzech", 1);
         this.articleFeatures1 = new ArticleFeatures("pech", 7);
-        this.gram = new Ngram(3);
+        this.gram = new Ngram(3, false);
         features.add(Feature.Title);
         features.add(Feature.Avg_nr_of_words_in_sentence);
 
