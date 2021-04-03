@@ -36,12 +36,6 @@ public class NgramTest {
         Assert.assertEquals(1.0, normalizedGram.wordsDistance("", "summary"), 0.01);
     }
 
-    @Test
-    public void wordsDistance() {
-        System.out.println(normalizedGram.wordsDistance("summary", "summarization"));
-        System.out.println(normalizedGram.wordsDistance("pech", "lech"));
-        System.out.println(normalizedGram.wordsDistance("boby", "oby marley"));
 
-    }
 
 }

@@ -10,24 +10,22 @@ import pl.mowk.ksr.extractions.ArticleFeatures;
 import pl.mowk.ksr.extractions.Feature;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class KnnTest {
 
-    ArticleReader dataset;
-    List<Feature> features = new ArrayList<>();
-    Ngram gram;
-    KnnMethod knnMethod;
-    Metric metric;
 
-    @Before
-    public void setUp() {
+    @Test
+    public void classifyDebug() {
 
-        this.gram = new Ngram(3, false);
-        this.metric = new EuclideanMetric(gram);
-        this.features.add(Feature.Title);
-
-        this.features.add(Feature.Avg_nr_of_words_in_sentence);
+        /*
+        Ngram gram = new Ngram(3, false);
+        Metric metric = new EuclideanMetric(gram);
+        List<Feature> features = new ArrayList<>();
+        features.add(Feature.Title);
+        features.add(Feature.Avg_nr_of_words_in_sentence);
         //features.add(Feature.Number_of_words);
         features.add(Feature.Currency);
         features.add(Feature.First_keyword);
@@ -39,41 +37,13 @@ public class KnnTest {
 
 
         long time = System.currentTimeMillis();
-        this.dataset = new ArticleReader("src/main/resources/reuters", features);
+        ArticleReader dataset = new ArticleReader("src/main/resources/reuters", features);
         //this.dataset = new ArticleReader("src/test/resources/debugdataset", features);
         System.out.print("Extraction time:");
         System.out.print((System.currentTimeMillis()-time)/1000);
         System.out.println();
-        this.knnMethod = new KnnMethod(2, 0.7, dataset.getArticles(), features, metric);
-
-    }
-
-    @Test
-    public void normalizeDebug() {
-        /*
-        //List<ArticleFeatures> tmp = new ArrayList<ArticleFeatures>(knnMethod.classifyData());
-        List<Double> debug = new ArrayList<>();
-
-        for (ArticleFeatures articleFeatures :
-                knnMethod.getData()) {
-            debug.add(articleFeatures.getNumberFeatures().get(Feature.Avg_nr_of_words_in_sentence));
-        }
-
-        System.out.println("po normalizacji");
-        knnMethod.normalizeDataset();
-        for(int i=0; i<knnMethod.getData().size(); i++){
-            System.out.print(debug.get(i));
-            System.out.print(" is now a ");
-            System.out.print(knnMethod.getData().get(i).getNumberFeatures().get(Feature.Avg_nr_of_words_in_sentence));
-            System.out.println();
-        }
-
-         */
-    }
-
-    @Test
-    public void classifyDebug() {
-        long time = System.currentTimeMillis();
+        KnnMethod knnMethod = new KnnMethod(2, 0.7, dataset.getArticles(), features, metric);
+        time = System.currentTimeMillis();
         knnMethod.normalizeDataset();
         System.out.print("Normalization time:");
         System.out.print((System.currentTimeMillis()-time)/1000);
@@ -84,9 +54,40 @@ public class KnnTest {
         System.out.print((System.currentTimeMillis()-time)/1000);
         System.out.println();
         for (ArticleFeatures articleFeatures:
-             tmp) {
+                tmp) {
             System.out.println(articleFeatures.toString());
         }
+        */
+
+    }
+
+    @Test
+    public void classifyTest() {
+        List<ArticleFeatures> articleFeatures = new ArrayList<>();
+        articleFeatures.add(new ArticleFeatures("cingciong", 11, "japan"));
+        articleFeatures.add(new ArticleFeatures("ciongciong", 14, "japan"));
+        articleFeatures.add(new ArticleFeatures("ciocioong", 13, "japan"));
+        articleFeatures.add(new ArticleFeatures("grzech", 29, "usa"));
+        articleFeatures.add(new ArticleFeatures("grzechu", 28, "usa"));
+        articleFeatures.add(new ArticleFeatures("grzesiek", 25, "usa"));
+        articleFeatures.add(new ArticleFeatures("grzegorz", 24, "usa"));
+        articleFeatures.add(new ArticleFeatures("grzegrzolka", 26, "usa"));
+
+
+        articleFeatures.add(new ArticleFeatures("grzechucgrzeg", 23, "usa"));
+        articleFeatures.add(new ArticleFeatures("ngciong", 12, "japan"));
+
+        List<Feature> features = new ArrayList<>();
+        features.add(Feature.Title);
+        features.add(Feature.Avg_nr_of_words_in_sentence);
+        Ngram gram = new Ngram(3, false);
+        Metric metric = new EuclideanMetric(gram);
+        KnnMethod knn = new KnnMethod(3, 0.8, articleFeatures, features, metric);
+        for (ArticleFeatures articleFeatures1:
+             knn.classifyData()) {
+            Assert.assertEquals(articleFeatures1.getActualClass(), articleFeatures1.getPredictedClass());
+        }
+
     }
 
 
