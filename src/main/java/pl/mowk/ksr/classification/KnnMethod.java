@@ -1,16 +1,13 @@
 package pl.mowk.ksr.classification;
 
 import pl.mowk.ksr.data.ArticleReader;
-import pl.mowk.ksr.extractions.ArticleFeatures;
-import pl.mowk.ksr.extractions.Feature;
+import pl.mowk.ksr.extractions.*;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class KnnMethod {
     Metric metric;
+    Double proportion;
     List<ArticleFeatures> trainingSet;
     List<ArticleFeatures> testSet;
     List<Feature> features;
@@ -21,8 +18,8 @@ public class KnnMethod {
         this.kValue = k;
         this.features = features;
         this.metric = metric;
+        this.proportion = proportion;
         datasetSpliter(dataSet, proportion);
-        normalize();
     }
 
     private void datasetSpliter(List<ArticleFeatures> dataSet, double proportion) {
@@ -41,18 +38,16 @@ public class KnnMethod {
 
     private void classifyArticle(ArticleFeatures article) {
         trainingSet.sort(Comparator.comparingDouble(a -> metric.calculateDistance(a, article, features)));
-        Map<String, Integer> occurencesMap= new HashMap<String, Integer>();
-        for (int i=0; i<kValue; i++){
+        Map<String, Integer> occurencesMap = new HashMap<>();
+        for (int i = 0; i < kValue; i++) {
             String tmp = trainingSet.get(i).getActualClass();
-            if (!occurencesMap.containsKey(tmp)){
+            if (!occurencesMap.containsKey(tmp)) {
                 occurencesMap.put(tmp, 0);
             } else occurencesMap.put(tmp, occurencesMap.get(tmp) + 1);
         }
         Map.Entry<String, Integer> maxEntry = null;
-        for (Map.Entry<String, Integer> entry : occurencesMap.entrySet())
-        {
-            if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0)
-            {
+        for (Map.Entry<String, Integer> entry : occurencesMap.entrySet()) {
+            if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0) {
                 maxEntry = entry;
             }
         }
@@ -63,8 +58,55 @@ public class KnnMethod {
     }
 
 
-    //todo
-    private void normalize() {
-
+    public List<ArticleFeatures> getData() {
+        List<ArticleFeatures> dataset = new ArrayList<>(trainingSet);
+        dataset.addAll(testSet);
+        return dataset;
     }
+
+
+    public void normalizeDataset() {
+        List<ArticleFeatures> dataset = new ArrayList<>(trainingSet);
+        dataset.addAll(testSet);
+
+        Map<Feature, Double> min = getMinFeatures(dataset);
+        Map<Feature, Double> max = getMaxFeatures(dataset);
+        for (ArticleFeatures articleFeatures :
+                dataset) {
+            articleFeatures.normalize(min, max);
+        }
+        datasetSpliter(dataset, proportion);
+    }
+
+    private Map<Feature, Double> getMinFeatures(List<ArticleFeatures> dataset) {
+        Map<Feature, Double> min = new HashMap<>();
+        for (Map.Entry<Feature, Double> entry : dataset.get(0).getNumberFeatures().entrySet()) {
+            min.put(entry.getKey(), entry.getValue());
+        }
+        for (ArticleFeatures articleFeatures :
+                dataset) {
+            for (Map.Entry<Feature, Double> entry : articleFeatures.getNumberFeatures().entrySet()) {
+                if (min.get(entry.getKey()) > entry.getValue())
+                    min.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return min;
+    }
+
+    private Map<Feature, Double> getMaxFeatures(List<ArticleFeatures> dataset) {
+        Map<Feature, Double> max = new HashMap<>();
+        for (Map.Entry<Feature, Double> entry : dataset.get(0).getNumberFeatures().entrySet()) {
+            max.put(entry.getKey(), entry.getValue());
+        }
+        for (ArticleFeatures articleFeatures :
+                dataset) {
+            for (Map.Entry<Feature, Double> entry : articleFeatures.getNumberFeatures().entrySet()) {
+                if (max.get(entry.getKey()) < entry.getValue())
+                    max.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return max;
+    }
+
+
 }

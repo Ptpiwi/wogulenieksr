@@ -26,12 +26,10 @@ import pl.mowk.ksr.extractions.Feature;
 @NoArgsConstructor
 public class ArticleReader {
     private List<ArticleFeatures> articles;
-    private List<ArticleFeatures> articlesTest;
-    private List<ArticleFeatures> articlesTraining;
     private List<String> stopWords = new ArrayList<>();
     private String path;
-    private String[] allowedPlaces = {"usa", "france", "canada", "japan", "west-germany"};
-    private List<Feature> features = new ArrayList<Feature>();
+    private String[] allowedPlaces = { "france", "canada", "japan", "west-germany"};
+    private List<Feature> features = new ArrayList<>();
     public ArticleReader(String path, List<Feature> features) {
         this.path = path;
         this.features=features;

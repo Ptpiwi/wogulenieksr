@@ -15,8 +15,8 @@ import java.util.Map;
 public class ArticleFeatures {
     private String actualClass;
     private String predictedClass;
-    private Map<Feature, String> textFeatures = new HashMap<Feature, String>();
-    private Map<Feature, Double> numberFeatures = new HashMap<Feature, Double>();
+    private Map<Feature, String> textFeatures = new HashMap<>();
+    private Map<Feature, Double> numberFeatures = new HashMap<>();
 
     public ArticleFeatures(Article article) {
         this.actualClass = article.getPlace();
@@ -48,6 +48,13 @@ public class ArticleFeatures {
 
     public void setPredictedClass(String predictedClass){
         this.predictedClass = predictedClass;
+    }
+
+    public void normalize(Map<Feature, Double> min, Map<Feature, Double> max){
+        for (Map.Entry<Feature, Double> entry :  numberFeatures.entrySet())
+        {
+            entry.setValue((entry.getValue()-min.get(entry.getKey()))/(max.get(entry.getKey())-min.get(entry.getKey())));
+        }
     }
 
 
