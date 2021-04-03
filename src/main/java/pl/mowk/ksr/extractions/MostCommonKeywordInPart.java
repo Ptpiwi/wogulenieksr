@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MostCommonKeywordInPart {
     public static String find (Article art) throws IOException {
-        String[] allWords = art.getBody().split(" ");
+        String[] allWords = art.getBody().toLowerCase().split(" ");
         //String[] allWords = text.split(" ");
         KeyWords k = new KeyWords();
         List<String> kw = k.getKeyWords();
@@ -22,7 +22,7 @@ public class MostCommonKeywordInPart {
             }
         }
         if(kwInText.size() == 0){
-            return "none";
+            return " ";
         }
         ArrayList<KeyWords> single = new ArrayList<>();
         int j = 0;

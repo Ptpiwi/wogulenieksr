@@ -11,7 +11,7 @@ public class TheFirstKeyword {
         String first = null;
         KeyWords k = new KeyWords();
         List<String> kw = k.getKeyWords();
-        String[] allWords = art.getBody().split(" ");
+        String[] allWords = art.getBody().toLowerCase().split(" ");
         for (String i : allWords){
             for(String j: kw){
                 if(i.contains(j)) {
@@ -21,7 +21,7 @@ public class TheFirstKeyword {
             }
         }
         if(first == null){
-            return "none";
+            return " ";
         }
         return first;
     }

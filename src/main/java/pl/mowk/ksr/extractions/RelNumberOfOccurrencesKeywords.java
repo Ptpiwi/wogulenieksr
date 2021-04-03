@@ -12,7 +12,7 @@ import java.util.List;
 public class RelNumberOfOccurrencesKeywords {
     public static double calculate(Article art) throws IOException {
         int numberofkw = 0;
-        String[] allWords = art.getBody().split(" ");
+        String[] allWords = art.getBody().toLowerCase().split(" ");
         KeyWords k = new KeyWords();
         List<String> kw = k.getKeyWords();
         for (int i = 0; i < allWords.length/10; i++) {

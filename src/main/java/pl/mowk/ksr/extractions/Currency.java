@@ -15,7 +15,9 @@ public class Currency {
     public static String find (Article art) throws IOException {
         //String [] currency = {"dlr", "euro", "USD","pound"};
         File file = new File("src\\main\\resources\\keywords\\currency");
-        String[] allWords = art.getBody().split(" ");
+
+        String[] allWords = art.getBody().toLowerCase().split(" ");
+
         //String[] allWords = text.split(" ");
         ArrayList<String> list = findInFile(file);
         ArrayList<String> currInText = new ArrayList<>();
@@ -27,7 +29,7 @@ public class Currency {
             }
         }
         if(currInText.size() == 0){
-            return "none";
+            return " ";
         }
         ArrayList<SingleCurrency> single = new ArrayList<>();
         int j = 0;

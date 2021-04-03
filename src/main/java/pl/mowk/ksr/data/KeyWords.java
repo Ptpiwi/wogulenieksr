@@ -27,7 +27,7 @@ public class KeyWords {
     }
 
     public List<String> loadFromFile() throws IOException {
-        String path = "src/main/resources/keywords/slowa.txt";
+        String path = "src\\main\\resources\\keywords\\kw.txt";
         BufferedReader fileReader = null;
         List<String> keywords = null;
         try {

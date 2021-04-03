@@ -9,7 +9,7 @@ public class OccurrencesOfTheFirstKeyword {
         String firstKW;
         TheFirstKeyword first = new TheFirstKeyword();
         firstKW = first.find(art);
-        String[] allWords = art.getBody().split(" ");
+        String[] allWords = art.getBody().toLowerCase().split(" ");
         if(firstKW == null){
             return 0;
         }

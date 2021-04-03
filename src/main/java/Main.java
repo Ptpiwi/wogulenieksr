@@ -29,6 +29,7 @@ public class Main {
         features.add(Feature.Rell_Number_Of_Words_In_Capital_Letters);
 
 
+
         ArticleReader dataset = new ArticleReader("src\\main\\resources\\reuters",features);
         for (ArticleFeatures article: dataset.getArticles()
         ) {

@@ -11,20 +11,20 @@ import java.util.Map;
 
 public class MostCommonKeyword {
     public static String find (Article art) throws IOException {
-        String[] allWords = art.getBody().split(" ");
+        String[] allWords = art.getBody().toLowerCase().split(" ");
         //String[] allWords = text.split(" ");
         KeyWords k = new KeyWords();
         List<String> kw = k.getKeyWords();
         ArrayList<String> kwInText = new ArrayList<>();
-        for (String i : allWords) {
-            for (String j : kw) {
-                if (i.equals(j)) {
+        for (int i = 0; i < allWords.length; i++) {
+            for (String j : kw){
+                if (allWords[i].contains(j)){
                     kwInText.add(j);
                 }
             }
         }
         if(kwInText.size() == 0){
-            return "none";
+            return " ";
         }
         ArrayList<KeyWords> single = new ArrayList<>();
         int j = 0;

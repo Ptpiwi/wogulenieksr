@@ -38,7 +38,7 @@ public class ArticleFeatures {
             textFeatures.put(Feature.Most_common_keyword_in_part, MostCommonKeywordInPart.find(article));
             numberFeatures.put(Feature.Rel_Number_Of_Occurrences_Keywords, RelNumberOfOccurrencesKeywords.calculate(article));
             numberFeatures.put(Feature.Rell_Number_Of_Words_In_Capital_Letters, RellNumberOfWordsInCapitalLetters.calculate(article));
-            numberFeatures.put(Feature.First_keyword_nr, RelNumberOfOccurrencesKeywords.calculate(article));
+            numberFeatures.put(Feature.First_keyword_nr, OccurrencesOfTheFirstKeyword.count(article));
             numberFeatures.put(Feature.Avg_nr_of_words_in_sentence, AvgNumberOfWordsInSentence.countSentences(article));
             numberFeatures.put(Feature.Number_of_words, NumberOfWords.count(article));
         } catch (Exception e) {

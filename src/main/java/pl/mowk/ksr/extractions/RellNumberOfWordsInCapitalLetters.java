@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class RellNumberOfWordsInCapitalLetters {
     public static double calculate(Article art) {
-        String[] allWords = art.getBody().split(" ");
+        String[] allWords = art.getBody().toLowerCase().split(" ");
         //String[] allWords = text.split(" ");
         ArrayList<String> currInText = new ArrayList<>();
         int sumCapital = 0;
