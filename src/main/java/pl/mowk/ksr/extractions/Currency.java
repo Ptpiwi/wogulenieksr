@@ -24,7 +24,7 @@ public class Currency {
         for (String i : allWords) {
             for (String j : list) {
                 if (i.contains(j)) {;
-                currInText.add(i);
+                currInText.add(j);
                 }
             }
         }

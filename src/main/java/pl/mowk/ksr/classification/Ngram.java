@@ -21,6 +21,7 @@ public class Ngram {
     public double wordsDistance(String s1, String s2) {
         int tempGrams = numberOfGrams;
         List<String> ngrams = new ArrayList<String>();
+        if (s1.equals("") && s2.equals("")) return 0;
         if (s1.equals("") || s2.equals("")) return 1;
         if (s1.length()<tempGrams) tempGrams= s1.length();
         if (s2.length()<tempGrams) tempGrams= s2.length();
