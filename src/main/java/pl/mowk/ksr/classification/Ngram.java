@@ -16,7 +16,6 @@ public class Ngram {
         this.normalize = normalize;
     }
 
-
     //todo what if the lenght of text is shorter than number of grams
     public double wordsDistance(String s1, String s2) {
         int tempGrams = numberOfGrams;
@@ -33,10 +32,19 @@ public class Ngram {
             if (s2.contains(gram)) h++;
         }
         if (normalize) {
-            if (s1.length() > s2.length()) return (1.0 - ((double) h / (double) (s1.length() - tempGrams + 1)));
-            else return (1.0 - ((double) h / (double) (s2.length() - tempGrams + 1)));
-        } else if (s1.length() > s2.length()) return ((double) (s1.length() - tempGrams + 1) / (double) h);
-        else return ((double) (s2.length() - tempGrams + 1) / (double) h);
+            if (s1.length() > s2.length()) {
+                return (1.0 - ((double) h / (double) (s1.length() - tempGrams + 1)));
+            }
+            else {
+                return (1.0 - ((double) h / (double) (s2.length() - tempGrams + 1)));
+            }
+        }
+        else if (s1.length() > s2.length()){
+            return ((double) (s1.length() - tempGrams + 1) / (double) h);
+        }
+        else {
+            return ((double) (s2.length() - tempGrams + 1) / (double) h);
+        }
     }
 
 }
