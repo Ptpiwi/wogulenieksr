@@ -23,7 +23,7 @@ public class Currency {
         ArrayList<String> currInText = new ArrayList<>();
         for (String i : allWords) {
             for (String j : list) {
-                if (i.contains(j)) {;
+                if (i.equals(j)) {;
                 currInText.add(i);
                 }
             }

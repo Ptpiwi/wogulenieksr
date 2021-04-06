@@ -29,3 +29,5 @@ public class ManhattanMetric implements Metric {
 
 
 }
+
+/// 1-m(a,b)

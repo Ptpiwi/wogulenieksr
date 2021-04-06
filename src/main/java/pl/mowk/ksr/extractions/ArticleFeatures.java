@@ -58,5 +58,19 @@ public class ArticleFeatures {
         }
     }
 
+    public Map<Feature, String> getTextFeatures() {
+        return textFeatures;
+    }
 
+    public String getActualClass() {
+        return actualClass;
+    }
+
+    public String getPredictedClass() {
+        return predictedClass;
+    }
+
+    public Map<Feature, Double> getNumberFeatures() {
+        return numberFeatures;
+    }
 }
