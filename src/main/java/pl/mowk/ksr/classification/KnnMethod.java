@@ -26,6 +26,10 @@ public class KnnMethod {
         int splitingPoint = (int) (dataSet.size() * proportion);
         this.trainingSet = (dataSet.subList(0, splitingPoint));
         this.testSet = dataSet.subList(splitingPoint, dataSet.size());
+        System.out.println(dataSet.size());
+        System.out.println(proportion);
+        System.out.println(trainingSet.size());
+        System.out.println(testSet.size());
     }
 
     public List<ArticleFeatures> classifyData() {
