@@ -89,6 +89,17 @@ public class KnnTest {
         }
 
     }
+    @Test
+    public void IleArt(){
+
+        List<Feature> features = new ArrayList<>();
+        features.add(Feature.Title);
+
+
+
+        ArticleReader dataset = new ArticleReader("src/main/resources/reuters", features);
+        System.out.println(dataset.getArticles().size());
+    }
 
 
 }

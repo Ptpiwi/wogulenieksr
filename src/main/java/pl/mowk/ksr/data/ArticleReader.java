@@ -28,11 +28,12 @@ public class ArticleReader {
     private List<ArticleFeatures> articles;
     private List<String> stopWords = new ArrayList<>();
     private String path;
-    private String[] allowedPlaces = { "usa", "uk","france", "canada", "japan", "west-germany"};
+    private String[] allowedPlaces = {"west-germany", "usa", "france", "uk", "canada", "japan"};
     private List<Feature> features = new ArrayList<>();
+
     public ArticleReader(String path, List<Feature> features) {
         this.path = path;
-        this.features=features;
+        this.features = features;
         extractStopWords();
         extractDataFromDirectory(path);
     }
@@ -55,9 +56,9 @@ public class ArticleReader {
 
     private List<String> extractPlacesFromElement(Element element) {
         List<String> tmp = new ArrayList<>();
-        for (Element e : element.select("d")
+        for (Element e : element.select("places").select("d")
         ) {
-            tmp.add(e.select("d").text());
+            tmp.add(e.text());
         }
         return tmp;
     }
@@ -66,11 +67,13 @@ public class ArticleReader {
         Document document = Jsoup.parse(file, "UTF-8");
         for (Element element : document.select("REUTERS")) {
             List<String> tmp = extractPlacesFromElement(element);
+            String tmpTitle = element.select("title").text();
+            String tmpBody = bieda(element.select("text").html());
 
-            if (checkIfPlacesAreGood(tmp)) {
-                Article tempArticle =new Article(
-                        element.select("title").text(),
-                        bieda(element.select("text").html()),
+            if (checkIfPlacesAreGood(tmp) && tmpTitle.length()!=0 && !tmpBody.contains("Blah blah")) {
+                Article tempArticle = new Article(
+                        tmpTitle,
+                        tmpBody,
                         tmp.get(0)
                 );
                 articles.add(new ArticleFeatures(tempArticle));
@@ -81,16 +84,20 @@ public class ArticleReader {
     }
 
     private boolean checkIfPlacesAreGood(List<String> places) {
-        if (places.size()==1){
+        //System.out.print(places);
+        if (places.size() == 1) {
+            // System.out.print("Git");
+            //System.out.println();
             return Arrays.asList(allowedPlaces).contains(places.get(0));
         }
+        // System.out.println();
         return false;
     }
 
-    private void extractStopWords(){
+    private void extractStopWords() {
         JSONArray array = null;
         try {
-            String content = Files.readString(Path.of("src/main/resources/keywords/stoplist"),StandardCharsets.UTF_8);
+            String content = Files.readString(Path.of("src/main/resources/keywords/stoplist"), StandardCharsets.UTF_8);
             JSONArray jsonArray = new JSONArray(content);
 
             if (jsonArray != null) {
@@ -99,16 +106,16 @@ public class ArticleReader {
                     stopWords.add(jsonArray.get(i).toString());
                 }
             }
-            } catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private String bieda(String bobmarley){
+    private String bieda(String bobmarley) {
         String[] segments = bobmarley.split("</dateline>");
         String[] body = segments[segments.length - 1].split(" ");
         StringBuilder builder = new StringBuilder();
-        for(String word : body) {
+        for (String word : body) {
             if (!stopWords.contains(word)) {
                 builder.append(word);
                 builder.append(' ');
@@ -117,7 +124,7 @@ public class ArticleReader {
         return builder.toString().trim();
     }
 
-    public void dataSpliter(double prOfTraingData){
+    public void dataSpliter(double prOfTraingData) {
 
     }
 
