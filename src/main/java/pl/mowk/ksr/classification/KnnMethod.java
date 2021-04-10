@@ -37,7 +37,12 @@ public class KnnMethod {
     }
 
     private void classifyArticle(ArticleFeatures article) {
-        trainingSet.sort(Comparator.comparingDouble(a -> metric.calculateDistance(a, article, features)));
+        Map<ArticleFeatures, Double> distanceMap = new HashMap<>();
+        for (ArticleFeatures articleFeatures:
+             trainingSet) {
+            distanceMap.put(articleFeatures, metric.calculateDistance(articleFeatures, article, features));
+        }
+        trainingSet.sort(Comparator.comparingDouble(distanceMap::get));
         Map<String, Integer> occurencesMap = new HashMap<>();
         for (int i = 0; i < kValue; i++) {
             String tmp = trainingSet.get(i).getActualClass();

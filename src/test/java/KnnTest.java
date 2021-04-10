@@ -40,24 +40,18 @@ public class KnnTest {
         ArticleReader dataset = new ArticleReader("src/main/resources/reuters", features);
         //this.dataset = new ArticleReader("src/test/resources/debugdataset", features);
         System.out.print("Extraction time:");
-        System.out.print((System.currentTimeMillis()-time)/1000);
+        System.out.print((System.currentTimeMillis()-time));
         System.out.println();
         KnnMethod knnMethod = new KnnMethod(3, 0.95, dataset.getArticles(), features, metric);
         time = System.currentTimeMillis();
         knnMethod.normalizeDataset();
         System.out.print("Normalization time:");
-        System.out.print((System.currentTimeMillis()-time)/1000);
+        System.out.print((System.currentTimeMillis()-time));
         System.out.println();
         time = System.currentTimeMillis();
         List<ArticleFeatures> tmp = new ArrayList<>(knnMethod.classifyData());
         System.out.print("Classification time:");
-        System.out.print((System.currentTimeMillis()-time)/1000);
-        System.out.println();
-        for (ArticleFeatures articleFeatures:
-                tmp) {
-            System.out.println(articleFeatures.toString());
-        }
-
+        System.out.print((System.currentTimeMillis()-time));
 
     }
 

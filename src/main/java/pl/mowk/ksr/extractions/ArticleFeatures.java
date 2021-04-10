@@ -1,6 +1,7 @@
 package pl.mowk.ksr.extractions;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import pl.mowk.ksr.data.Article;
 
@@ -10,7 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 
-@Getter
+
+@Setter
 @ToString
 public class ArticleFeatures {
     private String actualClass;
@@ -51,6 +53,7 @@ public class ArticleFeatures {
         this.predictedClass = predictedClass;
     }
 
+
     public void normalize(Map<Feature, Double> min, Map<Feature, Double> max){
         for (Map.Entry<Feature, Double> entry :  numberFeatures.entrySet())
         {
@@ -73,4 +76,6 @@ public class ArticleFeatures {
     public Map<Feature, Double> getNumberFeatures() {
         return numberFeatures;
     }
+
+
 }
