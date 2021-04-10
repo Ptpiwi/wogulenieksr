@@ -162,10 +162,10 @@ public class GUI {
 //                System.out.println("Precision japan: " + q.calculatePrecision(predicted,actual,"japan"));
 //                System.out.println("Recall france: " + q.calculateRecall(predicted,actual,"france"));
 //                System.out.println("Precision france: " + q.calculatePrecision(predicted,actual,"france"));
-                System.out.println("Recall usa: " + q.calculateRecall(predicted,actual,"usa"));
                 System.out.println("Precision usa: " + q.calculatePrecision(predicted,actual,"usa"));
-                System.out.println("Recall uk: " + q.calculateRecall(predicted,actual,"uk"));
+                System.out.println("Recall usa: " + q.calculateRecall(predicted,actual,"usa"));
                 System.out.println("Precision uk: " + q.calculatePrecision(predicted,actual,"uk"));
+                System.out.println("Recall uk: " + q.calculateRecall(predicted,actual,"uk"));
 //                System.out.println("Recall canada: " + q.calculateRecall(predicted,actual,"canada"));
 //                System.out.println("Precision canada: " + q.calculatePrecision(predicted,actual,"canada"));
 //                System.out.println("Recall west germany: " + q.calculateRecall(predicted,actual,"west-germany"));
