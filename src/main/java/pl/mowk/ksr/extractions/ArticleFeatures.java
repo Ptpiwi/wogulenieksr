@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 
-@Getter
+
 @Setter
 @ToString
 public class ArticleFeatures {
@@ -19,7 +19,6 @@ public class ArticleFeatures {
     private String predictedClass;
     private Map<Feature, String> textFeatures = new HashMap<>();
     private Map<Feature, Double> numberFeatures = new HashMap<>();
-    private double distance;
 
     public ArticleFeatures(Article article) {
         this.actualClass = article.getPlace();
