@@ -140,6 +140,37 @@ public class GUI {
                 List<ArticleFeatures> tmp = new ArrayList<>(knnMethod.classifyData());
                 System.out.print("Classification time:");
                 System.out.print((System.currentTimeMillis()-time)/1000);
+                List<String> labels = new ArrayList<>();
+                labels.add("usa");
+                labels.add("west-germany");
+                labels.add("france");
+                labels.add("uk");
+                labels.add("canada");
+                labels.add("japan");
+                QualityOfMeasures q = new QualityOfMeasures();
+                List<String> predicted = new ArrayList<>();
+                List<String> actual = new ArrayList<>();
+
+                for (ArticleFeatures articleFeatures: tmp) {
+                    predicted.add(articleFeatures.getPredictedClass());
+                    actual.add(articleFeatures.getActualClass());
+        }
+                System.out.println("Accuracy: " + q.calculateAcc(predicted,actual));
+                System.out.println("Precision: " + q.calculatePrecisionForAll(predicted, actual, labels));
+                System.out.println("Recall: " + q.calculateRecallForAll(predicted, actual, labels));
+//                System.out.println("Recall japan: " + q.calculateRecall(predicted,actual,"japan"));
+//                System.out.println("Precision japan: " + q.calculatePrecision(predicted,actual,"japan"));
+//                System.out.println("Recall france: " + q.calculateRecall(predicted,actual,"france"));
+//                System.out.println("Precision france: " + q.calculatePrecision(predicted,actual,"france"));
+                System.out.println("Recall usa: " + q.calculateRecall(predicted,actual,"usa"));
+                System.out.println("Precision usa: " + q.calculatePrecision(predicted,actual,"usa"));
+                System.out.println("Recall uk: " + q.calculateRecall(predicted,actual,"uk"));
+                System.out.println("Precision uk: " + q.calculatePrecision(predicted,actual,"uk"));
+//                System.out.println("Recall canada: " + q.calculateRecall(predicted,actual,"canada"));
+//                System.out.println("Precision canada: " + q.calculatePrecision(predicted,actual,"canada"));
+//                System.out.println("Recall west germany: " + q.calculateRecall(predicted,actual,"west-germany"));
+//                System.out.println("Precision west-germany: " + q.calculatePrecision(predicted,actual,"west-germany"));
+                System.out.println("F1: " + q.calculateF1(predicted,actual,labels));
                 System.out.println();
                 SwingUtilities.invokeLater(GUI::gui_end);
             }

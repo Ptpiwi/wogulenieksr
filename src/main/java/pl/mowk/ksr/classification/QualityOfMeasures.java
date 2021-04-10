@@ -92,4 +92,10 @@ public class QualityOfMeasures {
         }
         return (float) truePositive / (truePositive + falseNegative);
     }
+
+    public float calculateF1 (List<String> predicted, List<String> actual, List<String> labels){
+        float P = calculatePrecisionForAll(predicted,actual,labels);
+        float R = calculateRecallForAll(predicted,actual,labels);
+        return (2*P*R)/(P+R);
+    }
 }
