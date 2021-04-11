@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.security.Guard;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GUI {
@@ -31,8 +32,8 @@ public class GUI {
         JLabel label4= new JLabel();
         JPanel panel = new JPanel(null);
         metric.setBounds(250,100,120,30);
-        metric.addItem("Chebyshev");
         metric.addItem("Euclidean");
+        metric.addItem("Chebyshev");
         metric.addItem("Manhattan");
 
         c1.setBounds(250,150,450,30);
@@ -103,10 +104,10 @@ public class GUI {
                 Metric metric1;
                 switch (metric.getSelectedIndex()){
                     case 0:
-                        metric1 = new ChebyshevMetric(gram);
+                        metric1 = new EuclideanMetric(gram);
                         break;
                     case 1:
-                        metric1 = new EuclideanMetric(gram);
+                        metric1 = new ChebyshevMetric(gram);
                         break;
                     case 2:
                         metric1 = new ManhattanMetric(gram);
@@ -134,12 +135,12 @@ public class GUI {
                 time = System.currentTimeMillis();
                 knnMethod.normalizeDataset();
                 System.out.print("Normalization time:");
-                System.out.print((System.currentTimeMillis()-time)/1000);
+                System.out.print((System.currentTimeMillis()-time));
                 System.out.println();
                 time = System.currentTimeMillis();
                 List<ArticleFeatures> tmp = new ArrayList<>(knnMethod.classifyData());
                 System.out.print("Classification time:");
-                System.out.print((System.currentTimeMillis()-time)/1000);
+                System.out.print((System.currentTimeMillis()-time));
                 List<String> labels = new ArrayList<>();
                 labels.add("usa");
                 labels.add("west-germany");
@@ -155,24 +156,24 @@ public class GUI {
                     predicted.add(articleFeatures.getPredictedClass());
                     actual.add(articleFeatures.getActualClass());
         }
-                System.out.println("Accuracy: " + q.calculateAcc(predicted,actual));
-                System.out.println("Precision: " + q.calculatePrecisionForAll(predicted, actual, labels));
-                System.out.println("Recall: " + q.calculateRecallForAll(predicted, actual, labels));
-//                System.out.println("Recall japan: " + q.calculateRecall(predicted,actual,"japan"));
-//                System.out.println("Precision japan: " + q.calculatePrecision(predicted,actual,"japan"));
-//                System.out.println("Recall france: " + q.calculateRecall(predicted,actual,"france"));
-//                System.out.println("Precision france: " + q.calculatePrecision(predicted,actual,"france"));
-                System.out.println("Precision usa: " + q.calculatePrecision(predicted,actual,"usa"));
-                System.out.println("Recall usa: " + q.calculateRecall(predicted,actual,"usa"));
-                System.out.println("Precision uk: " + q.calculatePrecision(predicted,actual,"uk"));
-                System.out.println("Recall uk: " + q.calculateRecall(predicted,actual,"uk"));
-//                System.out.println("Recall canada: " + q.calculateRecall(predicted,actual,"canada"));
-//                System.out.println("Precision canada: " + q.calculatePrecision(predicted,actual,"canada"));
-//                System.out.println("Recall west germany: " + q.calculateRecall(predicted,actual,"west-germany"));
-//                System.out.println("Precision west-germany: " + q.calculatePrecision(predicted,actual,"west-germany"));
-                System.out.println("F1: " + q.calculateF1(predicted,actual,labels));
-                System.out.println();
-                SwingUtilities.invokeLater(GUI::gui_end);
+                q.setAccuracy(q.calculateAcc(predicted,actual)*100);
+                q.setPrecision(q.calculatePrecisionForAll(predicted, actual, labels)*100);
+                q.setRecall(q.calculateRecallForAll(predicted, actual, labels)*100);
+                q.setPrecision_usa(q.calculatePrecision(predicted,actual,"usa")*100);
+                q.setRecall_usa(q.calculateRecall(predicted,actual,"usa")*100);
+                q.setPrecision_uk(q.calculatePrecision(predicted,actual,"uk")*100);
+                q.setRecall_uk(q.calculateRecall(predicted,actual,"uk")*100);
+                q.setPrecision_wg(q.calculatePrecision(predicted,actual,"west-germany")*100);
+                q.setRecall_wg(q.calculateRecall(predicted,actual,"west-germany")*100);
+                q.setPrecision_france(q.calculatePrecision(predicted,actual,"france")*100);
+                q.setRecall_france(q.calculateRecall(predicted,actual,"france")*100);
+                q.setPrecision_canada(q.calculatePrecision(predicted,actual,"canada")*100);
+                q.setRecall_canada(q.calculateRecall(predicted,actual,"canada")*100);
+                q.setPrecision_japan(q.calculatePrecision(predicted,actual,"japan")*100);
+                q.setRecall_japan(q.calculateRecall(predicted,actual,"japan")*100);
+                q.setF1(q.calculateF1(predicted,actual,labels)*100);
+//
+                GUI.gui_end(q);
             }
         });
         button.setBounds(250,330,80,30);
@@ -257,27 +258,149 @@ public class GUI {
             }
         }
 
-    public static void gui_end(){
+    public static void gui_end(QualityOfMeasures q){
         JFrame frame = new JFrame();
-        JPanel panel = new JPanel();
-        panel.setBorder(BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(), "Wyniki", TitledBorder.CENTER, TitledBorder.TOP));
-        panel.setLayout(new BorderLayout());
-        String [][] data ={{"2","80,3","0.85","0.84","0.26","0.87","0.90","0.11","0.86"},
-                         {"5","84","0.70","0.80","0.33","0.90","0.89","0.26","0.79"},
-                         {"7","83,6","0.79","0.81","0.30","0.87","0.90","0.23","0.83"},
-                         {"10","82,3","0.81","0.79","0.34","0.90","0.89","0.25","0.86"},
-                         {"20","82","0.82","0.83","0.35","0.89","0.90","0.13","0.85"},
-        };
-        String[] title = { "k", "Accuracy", "Precicion","Precicion for usa", "Precicion for uk", "Recall","Recall for usa","Recall fo uk", "F1"};
-        JTable tabela = new JTable(data,title);
-        //tabela.setSize(800,300);
-        tabela.setRowHeight(50);
-        tabela.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        for (int i=0; i<tabela.getColumnCount(); i++){
-            tabela.getColumnModel().getColumn(i).setPreferredWidth(150);
-        }
+        JPanel panel = new JPanel(null);
+//        panel.setBorder(BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(), "Wyniki", TitledBorder.CENTER, TitledBorder.TOP));
+//        panel.setLayout(new BorderLayout());
+        JTextField k = new JTextField();
+        JTextField acc = new JTextField();
+        JTextField recall = new JTextField();
+        JTextField prec = new JTextField();
+        JTextField recall_usa = new JTextField();
+        JTextField prec_usa = new JTextField();
+        JTextField recall_uk = new JTextField();
+        JTextField prec_uk = new JTextField();
+        JTextField recall_wg = new JTextField();
+        JTextField prec_wg = new JTextField();
+        JTextField recall_fr = new JTextField();
+        JTextField prec_fr = new JTextField();
+        JTextField recall_can = new JTextField();
+        JTextField prec_can = new JTextField();
+        JTextField recall_ja = new JTextField();
+        JTextField prec_ja = new JTextField();
+        JTextField f1 = new JTextField();
 
-        panel.add(new JScrollPane(tabela),BorderLayout.CENTER);
+        JLabel acc_l= new JLabel();
+        JLabel recall_l= new JLabel();
+        JLabel prec_l= new JLabel();
+        JLabel recall_usa_l= new JLabel();
+        JLabel prec_usa_l= new JLabel();
+        JLabel recall_uk_l= new JLabel();
+        JLabel prec_uk_l= new JLabel();
+        JLabel recall_wg_l= new JLabel();
+        JLabel prec_wg_l= new JLabel();
+        JLabel recall_fr_l= new JLabel();
+        JLabel prec_fr_l= new JLabel();
+        JLabel recall_can_l= new JLabel();
+        JLabel prec_can_l= new JLabel();
+        JLabel recall_ja_l= new JLabel();
+        JLabel prec_ja_l= new JLabel();
+        JLabel f1_l= new JLabel();
+
+        acc_l.setText("Accuracy: ");
+        recall_l.setText("Recall: ");
+        prec_l.setText("Precision: ");
+        recall_usa_l.setText("Recall dla 'usa': ");
+        prec_usa_l.setText("Precision dla 'usa': ");
+        recall_uk_l.setText("Recall dla 'uk': ");
+        prec_uk_l.setText("Precision dla 'uk': ");
+        recall_wg_l.setText("Recall dla 'west-germany': ");
+        prec_wg_l.setText("Precision dla 'west-germany': ");
+        recall_fr_l.setText("Recall dla 'france': ");
+        prec_fr_l.setText("Precision dla 'france': ");
+        recall_can_l.setText("Recall dla 'canada': ");
+        prec_can_l.setText("Precision dla 'canada': ");
+        recall_ja_l.setText("Recall dla 'japan': ");
+        prec_ja_l.setText("Precision dla 'japan': ");
+        f1_l.setText("F1: ");
+
+        acc_l.setBounds(10,10,120,50);
+        recall_l.setBounds(10,60,120,50);
+        prec_l.setBounds(10,110,120,50);
+        recall_usa_l.setBounds(10,160,120,50);
+        prec_usa_l.setBounds(10,210,120,50);
+        recall_uk_l.setBounds(10,260,120,50);
+        prec_uk_l.setBounds(10,310,120,50);
+        f1_l.setBounds(10,360,120,50);
+        recall_wg_l.setBounds(600,10,300,50);
+        prec_wg_l.setBounds(600,60,300,50);
+        recall_fr_l.setBounds(600,110,300,50);
+        prec_fr_l.setBounds(600,160,300,50);
+        recall_can_l.setBounds(600,210,300,50);
+        prec_can_l.setBounds(600,260,300,50);
+        recall_ja_l.setBounds(600,310,300,50);
+        prec_ja_l.setBounds(600,360,300,50);
+
+        acc.setBounds(250,20,120,30);
+        recall.setBounds(250,70,120,30);
+        prec.setBounds(250,120,120,30);
+        recall_usa.setBounds(250,170,120,30);
+        prec_usa.setBounds(250,220,120,35);
+        recall_uk.setBounds(250,270,120,30);
+        prec_uk.setBounds(250,320,120,30);
+        f1.setBounds(250,370,120,30);
+        recall_wg.setBounds(850,20,120,30);
+        prec_wg.setBounds(850,70,120,30);
+        recall_fr.setBounds(850,120,120,30);
+        prec_fr.setBounds(850,170,120,30);
+        recall_can.setBounds(850,220,120,30);
+        prec_can.setBounds(850,270,120,30);
+        recall_ja.setBounds(850,320,120,30);
+        prec_ja.setBounds(850,370,120,30);
+
+        acc.setText(String.valueOf(q.getAccuracy()));
+        recall.setText(String.valueOf(q.getRecall()));
+        prec.setText(String.valueOf(q.getPrecision()));
+        recall_usa.setText(String.valueOf(q.getRecall_usa()));
+        prec_usa.setText(String.valueOf(q.getPrecision_usa()));
+        recall_uk.setText(String.valueOf(q.getRecall_uk()));
+        prec_uk.setText(String.valueOf(q.getPrecision_uk()));
+        f1.setText(String.valueOf(q.getF1()));
+        recall_wg.setText(String.valueOf(q.getRecall_wg()));
+        prec_wg.setText(String.valueOf(q.getPrecision_wg()));
+        recall_fr.setText(String.valueOf(q.getRecall_france()));
+        prec_fr.setText(String.valueOf(q.getPrecision_france()));
+        recall_can.setText(String.valueOf(q.getRecall_canada()));
+        prec_can.setText(String.valueOf(q.getPrecision_canada()));
+        recall_ja.setText(String.valueOf(q.getRecall_japan()));
+        prec_ja.setText(String.valueOf(q.getPrecision_japan()));
+
+        panel.add(acc_l);
+        panel.add(recall_l);
+        panel.add(prec_l);
+        panel.add(recall_usa_l);
+        panel.add(prec_usa_l);
+        panel.add(recall_uk_l);
+        panel.add(prec_uk_l);
+        panel.add(recall_wg_l);
+        panel.add(prec_wg_l);
+        panel.add(recall_fr_l);
+        panel.add(prec_fr_l);
+        panel.add(recall_can_l);
+        panel.add(prec_can_l);
+        panel.add(recall_ja_l);
+        panel.add(prec_ja_l);
+        panel.add(f1_l);
+
+        panel.add(k);
+        panel.add(acc);
+        panel.add(recall);
+        panel.add(prec);
+        panel.add(recall_usa);
+        panel.add(prec_usa);
+        panel.add(recall_uk);
+        panel.add(prec_uk);
+        panel.add(recall_wg);
+        panel.add(prec_wg);
+        panel.add(recall_fr);
+        panel.add(prec_fr);
+        panel.add(recall_can);
+        panel.add(prec_can);
+        panel.add(recall_ja);
+        panel.add(prec_ja);
+        panel.add(f1);
+
         frame.pack();
         frame.setSize(1200,700);
         frame.add(panel);

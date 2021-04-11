@@ -28,7 +28,7 @@ public class ArticleReader {
     private List<ArticleFeatures> articles;
     private List<String> stopWords = new ArrayList<>();
     private String path;
-    private String[] allowedPlaces = {"west-germany", "france", "uk", "canada", "japan"};
+    private String[] allowedPlaces = {"west-germany", "france", "uk","usa", "canada", "japan"};
     private List<Feature> features = new ArrayList<>();
 
     public ArticleReader(String path, List<Feature> features) {
