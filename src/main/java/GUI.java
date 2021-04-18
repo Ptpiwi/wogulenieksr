@@ -41,12 +41,12 @@ public class GUI {
         c1.addItem("Długość dokumentu");
         c1.addItem("Najczęstsze słowo kluczowe w dokumencie");
         c1.addItem("Najczęstsze słowo kluczowe w pierwszych 10 % dokumentu");
+        c1.addItem("Pierwsze słowo kluczowe");
         c1.addItem("Względna liczba wystąpień słów kluczowych w pierwszych 10 % tekstu");
         c1.addItem("Liczba wystąpień pierwszego słowa kluczowego w pierwszych 10% tekstu");
         c1.addItem("Względna liczba słów wielką literą");
         c1.addItem("Średnia ilość słów w zdaniu po użyciu stop listy");
-        c1.addItem("Pierwsze słowo kluczowe z tytułu dokumentu");
-        c1.addItem("Pierwsze słowo kluczowe");
+        c1.addItem("Tytuł dokumentu");
         c1.addItem("Najczęściej występująca w dokumencie waluta");
 
         c2.setBounds(250,190,450,30);
@@ -54,12 +54,12 @@ public class GUI {
         c2.addItem("Długość dokumentu");
         c2.addItem("Najczęstsze słowo kluczowe w dokumencie");
         c2.addItem("Najczęstsze słowo kluczowe w pierwszych 10 % dokumentu");
+        c2.addItem("Pierwsze słowo kluczowe");
         c2.addItem("Względna liczba wystąpień słów kluczowych w pierwszych 10 % tekstu");
         c2.addItem("Liczba wystąpień pierwszego słowa kluczowego w pierwszych 10% tekstu");
         c2.addItem("Względna liczba słów wielką literą");
         c2.addItem("Średnia ilość słów w zdaniu po użyciu stop listy");
-        c2.addItem("Pierwsze słowo kluczowe z tytułu dokumentu");
-        c2.addItem("Pierwsze słowo kluczowe");
+        c2.addItem("Tytuł dokumentu");
         c2.addItem("Najczęściej występująca w dokumencie waluta");
 
         c3.setBounds(250,230,450,30);
@@ -67,12 +67,12 @@ public class GUI {
         c3.addItem("Długość dokumentu");
         c3.addItem("Najczęstsze słowo kluczowe w dokumencie");
         c3.addItem("Najczęstsze słowo kluczowe w pierwszych 10 % dokumentu");
+        c3.addItem("Pierwsze słowo kluczowe");
         c3.addItem("Względna liczba wystąpień słów kluczowych w pierwszych 10 % tekstu");
         c3.addItem("Liczba wystąpień pierwszego słowa kluczowego w pierwszych 10% tekstu");
         c3.addItem("Względna liczba słów wielką literą");
         c3.addItem("Średnia ilość słów w zdaniu po użyciu stop listy");
-        c3.addItem("Pierwsze słowo kluczowe z tytułu dokumentu");
-        c3.addItem("Pierwsze słowo kluczowe");
+        c3.addItem("Tytuł dokumentu");
         c3.addItem("Najczęściej występująca w dokumencie waluta");
 
         c4.setBounds(250,270,450,30);
@@ -80,12 +80,12 @@ public class GUI {
         c4.addItem("Długość dokumentu");
         c4.addItem("Najczęstsze słowo kluczowe w dokumencie");
         c4.addItem("Najczęstsze słowo kluczowe w pierwszych 10 % dokumentu");
+        c4.addItem("Pierwsze słowo kluczowe");
         c4.addItem("Względna liczba wystąpień słów kluczowych w pierwszych 10 % tekstu");
         c4.addItem("Liczba wystąpień pierwszego słowa kluczowego w pierwszych 10% tekstu");
         c4.addItem("Względna liczba słów wielką literą");
         c4.addItem("Średnia ilość słów w zdaniu po użyciu stop listy");
-        c4.addItem("Pierwsze słowo kluczowe z tytułu dokumentu");
-        c4.addItem("Pierwsze słowo kluczowe");
+        c4.addItem("Tytuł dokumentu");
         c4.addItem("Najczęściej występująca w dokumencie waluta");
 
         c1.addActionListener(e -> {
@@ -182,7 +182,7 @@ public class GUI {
         label.setText("Podaj k: ");
         label2.setText("Wybierz metrykę: ");
         label3.setText("Wybierz ceche: ");
-        label4.setText("Podaj ile procent zajmuje zbiór uczący: ");
+        label4.setText("Podaj wielkość zbioru treningowego [%]: ");
         label.setBounds(10,10,120,50);
         k.setBounds(250, 20, 120, 30);
         podzial.setBounds(250,60,120,30);
@@ -235,22 +235,22 @@ public class GUI {
                     features.add(Feature.Most_common_keyword_in_part);
                     break;
                 case 4:
-                    features.add(Feature.Rel_Number_Of_Occurrences_Keywords);
+                    features.add(Feature.First_keyword);
                     break;
                 case 5:
-                    features.add(Feature.First_keyword_nr);
+                    features.add(Feature.Rel_Number_Of_Occurrences_Keywords);
                     break;
                 case 6:
-                    features.add(Feature.Rell_Number_Of_Words_In_Capital_Letters);
+                    features.add(Feature.First_keyword_nr);
                     break;
                 case 7:
-                    features.add(Feature.Avg_nr_of_words_in_sentence);
+                    features.add(Feature.Rell_Number_Of_Words_In_Capital_Letters);
                     break;
                 case 8:
-                    features.add(Feature.Title);
+                    features.add(Feature.Avg_nr_of_words_in_sentence);
                     break;
                 case 9:
-                    features.add(Feature.First_keyword);
+                    features.add(Feature.Title);
                     break;
                 case 10:
                     features.add(Feature.Currency);
@@ -401,10 +401,11 @@ public class GUI {
         panel.add(prec_ja);
         panel.add(f1);
 
+
         frame.pack();
         frame.setSize(1200,700);
         frame.add(panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setTitle("Komputerowe systemy rozpoznawania");
         frame.setVisible(true);
 
